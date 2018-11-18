@@ -17,7 +17,7 @@ namespace OdeToFood.Controllers
                 Name = "Zachs bagguettes"
             };
 
-            return new ObjectResult(model);
+            return View(model);
         }
     }
 }
