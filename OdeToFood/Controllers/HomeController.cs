@@ -7,10 +7,10 @@ namespace OdeToFood.Controllers
 {
     public class HomeController : Controller
     {
-        private IRestautantData _restautantData;
+        private IRestaurantData _restautantData;
         private IGreeter _greeter;
 
-        public HomeController(IRestautantData restautantData, IGreeter greeter)
+        public HomeController(IRestaurantData restautantData, IGreeter greeter)
         {
             _restautantData = restautantData;
             _greeter = greeter;

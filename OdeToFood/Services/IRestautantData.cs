@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OdeToFood.Services
 {
-    public interface IRestautantData
+    public interface IRestaurantData
     {
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
