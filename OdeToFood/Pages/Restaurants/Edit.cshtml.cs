@@ -32,7 +32,7 @@ namespace OdeToFood.Pages.Restaurants
             if (ModelState.IsValid)
             {
                 _restaurantData.Update(Restaurant);
-                RedirectToAction("Details", "Home", new { id = Restaurant.Id });
+                return RedirectToAction("Details", "Home", new { id = Restaurant.Id });
             }
             return Page();
         }
