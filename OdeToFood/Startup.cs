@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
@@ -40,22 +39,22 @@ namespace OdeToFood
                 .AddCookie();
 
             services.AddSingleton<IGreeter, Greeter>();
+
             services.AddDbContext<OdeToFoodDbContext>(
                 options => options.UseSqlServer(_configuration.GetConnectionString("OdeToFoodConnection")));
+
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
+
             services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,
-            IGreeter greeter, ILogger<Startup> logger)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseRewriter();
 
             //app.Use(next =>
             //{
@@ -79,23 +78,18 @@ namespace OdeToFood
 
             app.UseStaticFiles();
 
+            app.UseNodeModules(env.ContentRootPath);
+
             app.UseAuthentication();
 
             app.UseMvc(ConfigureRoutes);
 
-            app.Run(async (context) =>
-            {
-                var greeting = greeter.GetMessageOfTheDay();
-                context.Response.ContentType = "text/plain";
-                await context.Response.WriteAsync($"{greeting} : {env.EnvironmentName}");
-            });
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
         {
             // /Home/Index/4
-            routeBuilder.MapRoute("Default",
-                "{controller=Home}/{action=Index}/{id?}");
+            routeBuilder.MapRoute("Default", "{controller=Home}/{action=Index}/{id?}");
         }
     }
 }

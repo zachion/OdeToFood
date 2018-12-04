@@ -7,7 +7,7 @@
 
 @foreach (var restaurant in Model.Restaurants)
 {
-    @Html.Partial("_Summary", restaurant)
+    @await Html.PartialAsync("_Summary", restaurant)
 }
 
 <div><a asp-action="Create">Add Restaurant</a></div>
